@@ -5,6 +5,8 @@ It extends RViz with interactive tools and enhances the LaserScan processing pip
 
 This makes it possible to evaluate how robust a robot’s navigation and localization stack is when exposed to spoofed sensor data or environmental anomalies—without touching any real hardware.  
 
+This package depends on third-party packages. Please refer to the Notice.md file.
+
 ## Features
 - 🟦 **RViz Rectangle Tool**  
   Interactively place virtual objects into the occupancy map. These objects are injected into the LaserScan and appear in the local costmap—even though they are not part of the static map.
