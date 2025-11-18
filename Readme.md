@@ -3,7 +3,8 @@
 **Perception Injector** is a ROS 2–based research and debugging tool designed to inject *artificial perception manipulations* into an existing navigation pipeline.  
 It extends RViz with interactive tools and enhances the LaserScan processing pipeline with custom filters to simulate **virtual objects**, **manipulated scan data**, and **sensor offsets**.
 
-This makes it possible to evaluate how robust a robot’s navigation and localization stack is when exposed to spoofed sensor data or environmental anomalies—without touching any real hardware.  
+This makes it possible to evaluate how robust a robot’s navigation and localization stack is when exposed to spoofed sensor data or environmental anomalies—without touching any real hardware. The simulation environment also performs continuous ARP-based network manipulation (arpspoof) inside the container to disrupt traffic between the localization and navigation components in order to intercept and tamper data.
+
 
 This package depends on third-party packages. Please refer to the Notice.md file.
 
