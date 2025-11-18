@@ -1,0 +1,43 @@
+{
+  "name": "Perception Injector Dev",
+
+  "dockerComposeFile": [
+    "../docker/docker-compose.yaml"
+  ],
+
+  "service": "dev",
+  "workspaceFolder": "/ws",
+  "remoteUser": "dev",
+  "containerUser": "dev",
+  "containerEnv": {
+    "SHELL": "/bin/bash"
+  },
+  "postCreateCommand": "bash -lc 'cd /ws && rosdep update && rosdep install --from-paths src --ignore-src -r -y && colcon build --merge-install'",
+
+  "overrideCommand": true,
+
+  //Start services when container is started
+  "runServices": [
+    "stage",
+    "rviz",
+    "nav_minimal",
+    "map_server",
+    "amcl",
+    "laser_filter",
+    "discovery",
+    "attacker",
+    "dev"
+  ],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-iot.vscode-ros",
+        "twxs.cmake",
+        "ms-python.python"
+      ]
+    }
+  }
+}
+  

@@ -1,0 +1,9 @@
+map_server:
+  ros__parameters:
+    frame_id: map
+    topic_name: map
+    use_sim_time: true
+    yaml_filename: "/ws/src/tuw_nav2/config/maps/glurak/map.yaml"
+
+
+#"./ws02/src/tuw_nav2/config/maps/cave/map.yaml"

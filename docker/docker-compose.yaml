@@ -1,0 +1,234 @@
+services:
+  stage:
+    container_name: stage
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.stage
+    networks:
+      security:
+        ipv4_address:
+          172.16.0.1
+    depends_on:
+      - dev
+    env_file:
+      - gui.env
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ../ws:/ws/:rw
+    command:
+      bash -lc "source /opt/ros/jazzy/setup.bash 
+      && source /ws/install/setup.bash
+      && ros2 launch stage_ros2 stage.launch.py world:=/ws/src/stage_ros2/world/glurak use_sim_time:=true"
+
+  rviz:
+    container_name: rviz
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.rviz
+    networks:
+      security:
+        ipv4_address:
+          172.16.0.2
+    depends_on:
+      - dev
+      - stage
+    env_file:
+      - gui.env
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ../ws//src/rviz_config:/home/ros/.rviz2
+      - ../ws:/ws:rw
+    command:
+      bash -lc "source /opt/ros/jazzy/setup.bash &&
+                source /ws/install/setup.bash &&
+                ros2 run rviz2 rviz2 --ros-args -p use_sim_time:=true -r base_scan:=/scan_filtered"
+
+  discovery:
+    container_name: discovery
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.discovery
+    networks:
+      security:
+        ipv4_address:
+          172.16.0.253
+    depends_on:
+      - dev
+    volumes:
+      - ../ws:/ws/:rw
+    env_file:
+      - dds.env
+    command:
+      bash -lc "source /opt/ros/jazzy/setup.bash
+      && fastdds discovery --server-id 0"
+
+
+  nav_minimal:
+    container_name: nav_minimal
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.nav_minimal
+    networks:
+      security:
+        ipv4_address:
+          172.16.0.3
+    volumes:
+      - ../ws:/ws/:rw
+    depends_on:
+      - dev
+      - amcl
+      - map_server
+    env_file:
+      - default.env
+    command:
+      bash -lc "source /opt/ros/jazzy/setup.bash 
+      && source /ws/install/setup.bash &&
+      ros2 launch tuw_nav2 nav2_minimal_launch.py use_sim_time:=true"
+
+
+  map_server:
+      container_name: map_server
+      build:
+        context: ..
+        dockerfile: ./docker/dockerfiles/Dockerfile.map_server
+      networks:
+        security:
+          ipv4_address:
+            172.16.0.4
+      volumes:
+        - ../ws:/ws/:rw
+      depends_on:
+        - dev
+        - stage
+        - rviz
+      env_file:
+        - default.env
+      command:
+        bash -lc "source /opt/ros/jazzy/setup.bash 
+        && source /ws/install/setup.bash &&
+        ros2 launch tuw_nav2 map_server_launch.py environment:=glurak"
+
+  amcl:
+      container_name: amcl
+      build:
+        context: ..
+        dockerfile: ./docker/dockerfiles/Dockerfile.amcl
+      networks:
+        security:
+          ipv4_address:
+            172.16.0.5
+      volumes:
+        - ../ws:/ws/:rw
+      depends_on:
+        - dev
+        - stage
+        - rviz
+        - map_server
+      env_file:
+        - default.env
+      command:
+        bash -lc "source /opt/ros/jazzy/setup.bash 
+        && source /ws/install/setup.bash &&
+        ros2 launch tuw_nav2 localization_launch.py use_sim_time:=true"
+
+  attacker:
+    sysctls:
+    - net.ipv4.ip_forward=1
+    container_name: attacker
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.attacker
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      security:
+        ipv4_address:
+          172.16.0.6
+    depends_on:
+      - dev
+    volumes:
+      - ../ws:/ws/:rw
+      - ../ws/src/configs/nftables.conf:/etc/nftables.conf:ro
+      - ../ws/src/logs:/var/log/nftables:rw
+    env_file:
+      - default.env
+    command: >
+      bash -lc "sleep 20 &&
+      cd /ws &&
+      sudo mkdir -p /ws/src/logs &&
+      sudo touch /ws/src/logs/nftables.log &&
+      sudo chmod 666 /ws/src/logs/*.log &&
+      source /opt/ros/jazzy/setup.bash &&
+      source /ws/install/setup.bash &&
+      ros2 launch fake_transform launch.fake_transform.py use_sim_time:=true &
+      sleep 20 &&
+      sudo nft -f /etc/nftables.conf &&
+      sudo arpspoof -i eth0 -t 172.16.0.5 172.16.0.3 &
+      sudo arpspoof -i eth0 -t 172.16.0.3 172.16.0.5 &
+      tail -f /dev/null"
+
+
+  laser_filter:
+    container_name: laser_filter
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.laser_filter
+    networks:
+      security:
+        ipv4_address: 172.16.0.8
+    depends_on:
+      - dev
+    volumes:
+      - ../ws:/ws:rw
+    env_file:
+      - default.env
+    environment:
+      - CLASS_LOADER_DEBUG=1
+    command: >
+      bash -lc "source /opt/ros/jazzy/setup.bash &&
+                source /ws/install/setup.bash &&
+                cd /ws &&
+                ros2 launch fake_object_filter scan_filter.launch.py use_sim_time:=true &&
+                tail -f /dev/null"
+
+
+  dev:
+    container_name: dev
+    build:
+      context: ..
+      dockerfile: ./docker/dockerfiles/Dockerfile.dev
+    networks:
+      security:
+        ipv4_address: 172.16.0.10
+    env_file:
+      - gui.env                 
+    volumes:
+      - ../ws:/ws:rw               
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw   
+    command: >
+      bash -lc "source /opt/ros/jazzy/setup.bash &&
+                cd /ws &&
+                exec bash"
+
+# if [ ! -f /ws/install/setup.bash ]; then
+#   echo 'Workspace not built. Building now...';
+#   rosdep update &&
+#   rosdep install --from-paths src --ignore-src -r -y &&
+#   colcon build --merge-install;
+# fi &&
+
+networks:
+  security:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/16
+          ip_range: 172.16.0.0/24
+          gateway: 172.16.0.254
+
+
+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles>
+  <participant profile_name="participant_discovery_server" is_default_profile="true">
+    <rtps>
+      <prefix>4D.49.47.55.45.4C.5F.42.41.52.52.4F</prefix>
+      <builtin>
+        <metatrafficUnicastLocatorList>
+          <locator>
+            <udpv4>
+              <address>172.16.0.253</address>
+              <port>11811</port>
+            </udpv4>
+          </locator>
+        </metatrafficUnicastLocatorList>
+        <discovery_config>
+          <discoveryProtocol>SERVER</discoveryProtocol>
+        </discovery_config>
+      </builtin>
+    </rtps>
+  </participant>
+</profiles>
