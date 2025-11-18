@@ -4,20 +4,16 @@
 It extends RViz with interactive tools and enhances the LaserScan processing pipeline with custom filters to simulate **virtual objects**, **manipulated scan data**, and **sensor offsets**.
 
 This makes it possible to evaluate how robust a robot’s navigation and localization stack is when exposed to spoofed sensor data or environmental anomalies—without touching any real hardware.  
-It is ideal for research, security experiments, or general debugging of perception-driven systems.
 
 ## Features
 - 🟦 **RViz Rectangle Tool**  
   Interactively place virtual objects into the occupancy map. These objects are injected into the LaserScan and appear in the local costmap—even though they are not part of the static map.
 
-- ⚙️ **Fake Object Filter**  
-  Generates synthetic LaserScan hits based on your virtual object’s geometry.
-
 - 🎚️ **Offset Panel**  
   Apply controlled offsets to TF frames and the AMCL pose and observe how navigation reacts to drift.
 
 - 🧪 **Fully containerized simulation environment**  
-  Stage simulator, Nav2, RViz, custom nodes, and all dependencies run automatically inside a Devcontainer.
+  Stage simulator, Nav2, RViz, custom nodes, and all dependencies are deployed automatically.
 
 ---
 
