@@ -41,13 +41,11 @@ RUN apt-get update && apt-get install -y \
 
 
 WORKDIR /ws
-# COPY ./ws/src/fastdds/client /ws/src/fastdds/client
 
 
 
 
 SHELL ["/bin/bash","-c"]
-# RUN source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --merge-install
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
 RUN echo "source /ws/install/setup.bash" >> /home/$USERNAME/.bashrc
 

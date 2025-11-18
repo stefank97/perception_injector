@@ -46,16 +46,8 @@ RUN git clone --depth=1 https://github.com/rtv/Stage.git /tmp/stage \
 
 
 WORKDIR /ws
-# COPY ./ws/src/stage_ros2 /ws/src/stage_ros2
-# COPY ./ws/src/fastdds/client /ws/src/fastdds/client
-
-# RUN apt-get update && apt-get install -y python3-rosdep \
-#     && rm -rf /var/lib/apt/lists/*
-# RUN apt-get update && \
-#     rosdep update && rosdep install --from-paths src --ignore-src -r -y
 
 SHELL ["/bin/bash","-c"]
-# RUN source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --merge-install
 
 ENV ROS_DOMAIN_ID=42 \
     ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST \

@@ -40,7 +40,6 @@ RUN apt-get update && apt-get install -y \
     fastdds-tools
 
 WORKDIR /ws
-# COPY ./ws/src/fastdds/server /ws/src/fastdds/server
 
 ENV ROS_DOMAIN_ID=42 \
     ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST

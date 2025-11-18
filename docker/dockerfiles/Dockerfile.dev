@@ -45,7 +45,7 @@ RUN apt-get update && \
 USER ${USERNAME}
 WORKDIR /ws
 
-# ROS immer in der Shell verfügbar machen
+
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /home/${USERNAME}/.bashrc && \
     echo "source /ws/install/setup.bash" >> /home/$USERNAME/.bashrc 
 

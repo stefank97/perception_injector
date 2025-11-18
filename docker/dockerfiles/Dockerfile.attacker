@@ -41,7 +41,6 @@ RUN apt-get update && apt-get install -y \
 
 
 WORKDIR /ws
-# COPY ./ws/src/fastdds/client /ws/src/fastdds/client
 RUN mkdir -p /ws/src/logs && chmod 777 /ws/src/logs
 
 

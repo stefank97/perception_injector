@@ -43,17 +43,9 @@ RUN apt-get update && apt-get upgrade -y
 
 
 WORKDIR /ws
-# COPY ./ws/src/fastdds/client /ws/src/fastdds/client
-# COPY ./ws/src/map /ws/src/map
-# COPY ./ws/src/tuw_common /ws/src/tuw_common
-# COPY ./ws/src/tuw_nav2/ /ws/src/tuw_nav2
 
-
-# RUN apt-get update && apt-get install -y python3-rosdep
-# RUN apt-get update && rosdep update && rosdep install --from-paths src --ignore-src -r -y
 
 SHELL ["/bin/bash","-c"]
-# RUN source /opt/ros/$ROS_DISTRO/setup.bash && colcon build --merge-install
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc
 RUN echo "source /ws/install/setup.bash" >> /home/$USERNAME/.bashrc
 
