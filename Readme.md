@@ -78,7 +78,7 @@ With it you can:
 docker compose -f docker/docker-compose.yaml stop
 ```
 
-### Stop everything and remove images + volumes
+### Stop all containers and remove images + volumes
 ```bash
 docker compose -f docker/docker-compose.yaml down --rmi all --volumes
 ```
