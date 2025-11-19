@@ -37,14 +37,6 @@ RUN mkdir /home/$USERNAME/projects \
     && chown -R  $USERNAME:$USERNAME /home/$USERNAME/projects 
 RUN apt-get update && apt-get upgrade -y
 
-RUN git clone --depth=1 https://github.com/rtv/Stage.git /tmp/stage \
- && cmake -S /tmp/stage -B /tmp/stage/build -DCMAKE_BUILD_TYPE=Release \
- && cmake --build /tmp/stage/build -j$(nproc) \
- && cmake --install /tmp/stage/build \
- && ldconfig \
- && rm -rf /tmp/stage
-
-
 WORKDIR /ws
 
 SHELL ["/bin/bash","-c"]
