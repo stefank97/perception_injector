@@ -1,7 +1,7 @@
 # Perception Injector
 
 **Perception Injector** is a ROS 2–based research and debugging tool designed to inject *artificial perception manipulations* into an existing navigation pipeline.  
-It extends RViz with interactive tools and enhances the LaserScan processing pipeline with custom filters to simulate **virtual objects**, **manipulated scan data**, and **sensor offsets**.
+It extends RViz with interactive tools and enhances the LaserScan processing pipeline with custom filters to simulate **virtual objects**, **manipulated scan data**, and **localization offsets**.
 
 This makes it possible to evaluate how robust a robot’s navigation and localization stack is when exposed to spoofed sensor data or environmental anomalies—without touching any real hardware. The simulation environment also performs continuous ARP-based network manipulation (arpspoof) inside the container to disrupt traffic between the localization and navigation components in order to intercept and tamper data.
 
@@ -57,7 +57,8 @@ Before doing anything else, click **"2D Goal Pose"** in RViz so the first TF tra
 
 ### Offset Panel
 In the lower-left corner of RViz you will find sliders to modify positional and rotational offsets.  
-Use them to simulate drift, TF errors, or sensor calibration issues.  
+Use them to simulate drift and watch the robot react to it.
+S
 Click **Reset Offsets** to restore default values.
 
 ### Rectangle Tool
