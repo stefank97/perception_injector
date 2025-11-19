@@ -211,13 +211,6 @@ services:
                 cd /ws &&
                 exec bash"
 
-# if [ ! -f /ws/install/setup.bash ]; then
-#   echo 'Workspace not built. Building now...';
-#   rosdep update &&
-#   rosdep install --from-paths src --ignore-src -r -y &&
-#   colcon build --merge-install;
-# fi &&
-
 networks:
   security:
     driver: bridge
