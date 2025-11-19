@@ -49,7 +49,7 @@ docker compose -f docker/docker-compose.yaml stop
 ```
 
 After reopening, RViz and Stage will launch automatically.  
-Before doing anything else, click **"2D Goal Pose"** in RViz so the first TF transforms get published and Nav2 does not time out.
+Before doing anything else, click **"2D Goal Pose"** and let the robot drive across the map in RViz, so the first TF transforms get published and Nav2 does not time out. It needs to make some distance, so at least send it to the neck of the dragon.
 
 ---
 
