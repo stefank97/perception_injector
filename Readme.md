@@ -23,6 +23,7 @@ This package depends on third-party packages. Please refer to the Notice.md file
 # Setup
 
 ### 1. Allow Docker access to your X11 display
+To allow docker to start programs with GUIs:
 ```bash
 sudo xhost +local:docker
 ```
@@ -49,7 +50,7 @@ docker compose -f docker/docker-compose.yaml stop
 ```
 
 After reopening, RViz and Stage will launch automatically.  
-Before doing anything else, click **"2D Goal Pose"** and let the robot drive across the map in RViz, so the first TF transforms get published and Nav2 does not time out. It needs to make some distance, so at least send it to the neck of the dragon.
+Before doing anything else, click **"2D Goal Pose"** and let the robot drive across the map in RViz, so the first TF transforms get published and Nav2 does not time out. It needs to make some distance, so at least send it to the neck of the dragon and back.
 
 ---
 
@@ -58,16 +59,14 @@ Before doing anything else, click **"2D Goal Pose"** and let the robot drive acr
 ### Offset Panel
 In the lower-left corner of RViz you will find sliders to modify positional and rotational offsets.  
 Use them to simulate drift and watch the robot react to it.
-S
 Click **Reset Offsets** to restore default values.
 
 ### Rectangle Tool
 In the RViz toolbar you’ll find the **Rectangle Tool**.
 
 With it you can:
-- place a virtual object anywhere on the map,  
-- set width, height, and yaw,  
-- inject synthetic LaserScan hits,  
+- place a virtual object anywhere on the map (through injecting synthetic LaserScan hits),  
+- set width, height, and yaw (in the 'Tool Properties'),
 - observe the impact on the local costmap and Nav2 path planning.
 
 ---
