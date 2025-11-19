@@ -11,6 +11,7 @@ cmake_install.cmake
 
 #VSCode
 .vscode/
+ws/.vscode
 
 #Python
 __pycache__/
