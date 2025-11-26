@@ -12,11 +12,11 @@
   "containerEnv": {
     "SHELL": "/bin/bash"
   },
-  "postCreateCommand": "bash -lc 'cd /ws && rosdep update && rosdep install --from-paths src --ignore-src -r -y && colcon build --merge-install'",
+  "postCreateCommand": "bash -lc 'sudo apt-get update && cd /ws && rosdep update && rosdep install --from-paths src --ignore-src -r -y && colcon build --merge-install'",
 
   "overrideCommand": true,
 
-  //Start services when container is started
+  //Start services when container is started     
   "runServices": [
     "stage",
     "rviz",
