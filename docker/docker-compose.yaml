@@ -18,7 +18,7 @@ services:
     command:
       bash -lc "source /opt/ros/jazzy/setup.bash 
       && source /ws/install/setup.bash
-      && ros2 launch stage_ros2 stage.launch.py world:=/ws/src/stage_ros2/world/glurak use_sim_time:=true"
+      && ros2 launch stage_ros2 stage.launch.py world:=/ws/src/stage_ros2/world/roblab use_sim_time:=true"
 
   rviz:
     container_name: rviz
@@ -106,7 +106,7 @@ services:
       command:
         bash -lc "source /opt/ros/jazzy/setup.bash 
         && source /ws/install/setup.bash &&
-        ros2 launch tuw_nav2 map_server_launch.py environment:=glurak"
+        ros2 launch tuw_nav2 map_server_launch.py environment:=roblab"
 
   amcl:
       container_name: amcl

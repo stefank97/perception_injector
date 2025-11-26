@@ -1,8 +1,12 @@
-image: map.pgm
-resolution: 0.010000
-origin: [-23.600000, -16.800000, 0.000000]
+image: map_flipped.pgm
+mode: trinary
+resolution: 0.01
+#origin: [-23.600000, -16.800000, 0.000000]
+origin: [-18.685, -11.690, 0.000000]
 #origin: [0.800000, 2.500000, 0.000000]
+#origin: [0.00000, 0.00000, 0.000000]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.196
+
 
