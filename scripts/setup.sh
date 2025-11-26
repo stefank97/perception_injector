@@ -6,7 +6,7 @@ WS="${ROOT}/ws"
 SRC="${WS}/src"
 
 echo ">>> Workspace root: ${ROOT}"
-echo ">>> Klone Repos nach: ${SRC}"
+echo ">>> Clone Repos to: ${SRC}"
 
 mkdir -p "${SRC}"
 cd "${SRC}"
@@ -16,7 +16,7 @@ clone_if_missing() {
     local dir_name="$2"
 
     if [ ! -d "${dir_name}/.git" ]; then
-        echo "➡️  Klone ${dir_name} ..."
+        echo "➡️  Cloneing ${dir_name} ..."
         git clone "${repo_url}" "${dir_name}"
     else
         echo "✔️  ${dir_name} already exists, skipping."
