@@ -18,7 +18,7 @@ RUN apt-get install -y  \
        iputils-ping     \
        keychain         
 
-RUN apt-get install -y git  g++ libjpeg8-dev libpng-dev libglu1-mesa-dev libltdl-dev libfltk1.3-dev
+RUN apt-get update && apt-get install -y git  g++ libjpeg8-dev libpng-dev libglu1-mesa-dev libltdl-dev libfltk1.3-dev
 RUN if id -u $USER_UID ; then userdel `id -un $USER_UID` ; fi
 
 # Create the user
