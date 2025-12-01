@@ -13,6 +13,11 @@ cmake_install.cmake
 .vscode/
 ws/.vscode
 
+ws/src/fake_object_filter
+ws/src/fake_object_tool
+ws/src/fake_transform
+ws/src/ft_panel
+
 #Python
 __pycache__/
 *.pyc
