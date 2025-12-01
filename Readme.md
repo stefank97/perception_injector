@@ -50,7 +50,20 @@ docker compose -f docker/docker-compose.yaml stop
 ```
 
 After reopening, RViz and Stage will launch automatically.  
-Before doing anything else, click **"2D Goal Pose"** and let the robot drive across the map in RViz, so the first TF transforms get published and Nav2 does not time out. It needs to make some distance, so at least send it to the neck of the dragon and back.
+Before doing anything else, click **"2D Goal Pose"** and let the robot drive across the map in RViz, so the first TF transforms get published and Nav2 does not time out. It needs to make some distance, so at least send it down the hallway. If it stops after a few meters do not panic - thats where the attacker node sets in, it will continue after a few seconds.
+
+If you want to use the discovery server (which is initially disabled), you need to add the service "discovery" to the `docker-compose.yaml` and set the following environment variables:
+dds.env:
+```bash
+FASTRTPS_DEFAULT_PROFILES_FILE=/ws/src/fastdds/server/fdds_server.xml
+```
+default.env & gui.env:
+```bash
+FASTRTPS_DEFAULT_PROFILES_FILE=/ws/src/fastdds/client/fastdds_client.xml
+ROS_DISCOVERY_SERVER=172.16.0.253:11811
+```
+
+There is also a file provided at `/ws/src/cyclonedds` if you want to try and play around with the cyclone DDS middleware (standard is fast DDS).
 
 ---
 
