@@ -43,24 +43,24 @@ services:
                 source /ws/install/setup.bash &&
                 ros2 run rviz2 rviz2 --ros-args -p use_sim_time:=true -r base_scan:=/scan_filtered"
 
-  discovery:
-    container_name: discovery
-    build:
-      context: ..
-      dockerfile: ./docker/dockerfiles/Dockerfile.discovery
-    networks:
-      security:
-        ipv4_address:
-          172.16.0.253
-    depends_on:
-      - dev
-    volumes:
-      - ../ws:/ws/:rw
-    env_file:
-      - dds.env
-    command:
-      bash -lc "source /opt/ros/jazzy/setup.bash
-      && fastdds discovery --server-id 0"
+  # discovery:
+  #   container_name: discovery
+  #   build:
+  #     context: ..
+  #     dockerfile: ./docker/dockerfiles/Dockerfile.discovery
+  #   networks:
+  #     security:
+  #       ipv4_address:
+  #         172.16.0.253
+  #   depends_on:
+  #     - dev
+  #   volumes:
+  #     - ../ws:/ws/:rw
+  #   env_file:
+  #     - dds.env
+  #   command:
+  #     bash -lc "source /opt/ros/jazzy/setup.bash
+  #     && fastdds discovery --server-id 0"
 
 
   nav_minimal:
