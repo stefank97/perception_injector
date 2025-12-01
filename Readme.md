@@ -53,6 +53,7 @@ After reopening, RViz and Stage will launch automatically.
 Before doing anything else, click **"2D Goal Pose"** and let the robot drive across the map in RViz, so the first TF transforms get published and Nav2 does not time out. It needs to make some distance, so at least send it down the hallway. If it stops after a few meters do not panic - thats where the attacker node sets in, it will continue after a few seconds.
 
 If you want to use the discovery server (which is initially disabled), you need to add the service "discovery" to the `docker-compose.yaml` and set the following environment variables:
+
 dds.env:
 ```bash
 FASTRTPS_DEFAULT_PROFILES_FILE=/ws/src/fastdds/server/fdds_server.xml
