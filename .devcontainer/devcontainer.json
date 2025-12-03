@@ -24,7 +24,7 @@
     "map_server",
     "amcl",
     "laser_filter",
-    "discovery",
+    //"discovery",
     "attacker",
     "dev"
   ],
