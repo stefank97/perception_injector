@@ -2,7 +2,6 @@
 <CycloneDDS>
   <Domain id="any">
     <General>
-      <NetworkInterfaceAddress>auto</NetworkInterfaceAddress>
       <AllowMulticast>true</AllowMulticast>
     </General>
     <SharedMemory>
