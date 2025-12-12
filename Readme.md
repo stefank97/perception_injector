@@ -1,7 +1,7 @@
 # Perception Injector
 
 **Perception Injector** is a ROS 2–based research and debugging tool designed to inject *artificial perception manipulations* into an existing navigation pipeline.  
-It extends RViz with interactive tools and enhances the LaserScan processing pipeline with custom filters to simulate **virtual objects**, **manipulated scan data**, and **localization offsets**.
+It extends RViz with interactive tools and enhances the LaserScan processing pipeline with custom filters to simulate **virtual objects** and **localization offsets**.
 
 This makes it possible to evaluate how robust a robot’s navigation and localization stack is when exposed to spoofed sensor data or environmental anomalies—without touching any real hardware. The simulation environment also performs continuous ARP-based network manipulation (arpspoof) inside the container to disrupt traffic between the localization and navigation components in order to intercept and tamper data.
 
@@ -54,7 +54,7 @@ Before doing anything else, click **"2D Goal Pose"** and let the robot drive acr
 
 ### 5. Discovery Server
 
-If you want to use the discovery server (which is initially disabled), you need to add the service "discovery" to the `docker-compose.yaml` and set the following environment variables:
+If you want to use the discovery server (which is initially disabled), you need to add the service "discovery" to the `docker-compose.yaml` and the `devcontainer.json` and set the following environment variables:
 
 dds.env:
 ```bash
@@ -77,7 +77,10 @@ Also, to each .env file, add these lines:
 RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 CYCLONEDDS_URI=file:///ws/src/cyclonedds/cyclone_no_shm.xml
 ```
-
+And remove this line from the .env files:
+```bash
+FASTDDS_BUILTIN_TRANSPORTS=UDPv4
+```
 ---
 
 # Usage
