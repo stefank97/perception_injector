@@ -1,0 +1,11 @@
+legit_filter:
+  ros__parameters:
+    filters:
+      filter1:
+        name: range
+        type: laser_filters/LaserScanRangeFilter
+        params:
+          lower_threshold: 0.15
+          upper_threshold: 20.0
+          lower_replacement_value: 0.0
+          upper_replacement_value: 0.0
