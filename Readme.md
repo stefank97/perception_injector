@@ -111,3 +111,19 @@ docker compose -f docker/docker-compose.yaml stop
 ```bash
 docker compose -f docker/docker-compose.yaml down --rmi all --volumes
 ```
+
+# Known Issues
+Sometimes the dependencies are not installed correctly during the initial setup, causing all containers to exit. 
+If this happens, you can manually install the dependencies inside the `dev` container.
+First, start the `dev` container and connect to a bash shell:
+```bash
+docker compose run dev bash
+```
+Then, manually install the required dependencies and build the workspace:
+```bash
+sudo apt-get update
+sudo apt-get install -y libjpeg-dev
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+colcon build --merge-install
+```
